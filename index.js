@@ -61,7 +61,6 @@ const audioFeil = [
   "Lyd og bilder/boom.mp3",
   "Lyd og bilder/clash-royale-hog-rider.mp3",
   "Lyd og bilder/perfect-fart.mp3",
-  "Lyd og bilder/hei.mp3",
 ];
 
 let audioRiktig = new Audio("Lyd og bilder/Yippee Original Sound Effect.mp3");
