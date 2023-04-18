@@ -55,14 +55,16 @@ const c_text = document.getElementById("c_text");
 const d_text = document.getElementById("d_text");
 const e_text = document.getElementById("e_text");
 const submitBtn = document.getElementById("submit");
-const audioFeil = ["Lyd og bilder/aughhhhh-aughhhhh.mp3", "Lyd og bilder/bing-chilling_fcdGgUc.mp3",
-"Lyd og bilder/boom.mp3", "Lyd og bilder/clash-royale-hog-rider.mp3", "Lyd og bilder/perfect-fart.mp3", "Lyd og bilder/hei.mp3"];
+const audioFeil = [
+  "Lyd og bilder/aughhhhh-aughhhhh.mp3",
+  "Lyd og bilder/bing-chilling_fcdGgUc.mp3",
+  "Lyd og bilder/boom.mp3",
+  "Lyd og bilder/clash-royale-hog-rider.mp3",
+  "Lyd og bilder/perfect-fart.mp3",
+  "Lyd og bilder/hei.mp3",
+];
 
-const random = Math.floor(Math.random() * audioFeil.length);
-console.log(random, audioFeil[random]);
-
-let audioRiktig = new Audio('Lyd og bilder/Yippee Original Sound Effect.mp3')
-let audioRandom = new Audio(random)
+let audioRiktig = new Audio("Lyd og bilder/Yippee Original Sound Effect.mp3");
 
 let currentQuiz = 0;
 let score = 0;
@@ -97,14 +99,43 @@ function getSelected() {
 }
 
 submitBtn.addEventListener("click", () => {
+  const random = Math.floor(Math.random() * audioFeil.length);
+  let audioRandom = new Audio(audioFeil[random]);
   const answer = getSelected();
 
   //de trykka på submit
   if (answer) {
     //hvis svaret er ingenting
+    document.querySelectorAll("input").forEach((element) => {
+      element.setAttribute("disabled", true);
+
+      if (element.id === quizData[currentQuiz].correct) {
+        element.style.color = "red";
+      } else {
+        element.style.color = "#FF0000";
+      }
+    });
+
+    document.querySelectorAll("label").forEach((element) => {
+      if (element.id === quizData[currentQuiz].correct + "_text") {
+        element.style.color = "green";
+        element.style.fontWeight = "bold";
+      } else {
+        element.style.color = "red";
+      }
+    });
+    console.log("setting it to disabled");
     setTimeout(function () {
       submitBtn.innerText = "Submit";
-      submitBtn.style.backgroundColor = "#04adc4"
+      submitBtn.style.backgroundColor = "#04adc4";
+      document.querySelectorAll("input").forEach((element) => {
+        element.removeAttribute("disabled");
+        element.style.accentColor = "#232323";
+      });
+      document.querySelectorAll("label").forEach((element) => {
+        element.style.color = "black";
+        element.style.fontWeight = "normal";
+      });
 
       currentQuiz++;
 
@@ -118,16 +149,18 @@ submitBtn.addEventListener("click", () => {
             `;
       }
     }, 2000);
-
+    console.log(answer, quizData[currentQuiz].correct);
     if (answer === quizData[currentQuiz].correct) {
       submitBtn.innerText = "Riktig :D";
       score++;
-      submitBtn.style.backgroundColor = "#44b927"
-      audioRiktig.play()
+      submitBtn.style.backgroundColor = "#44b927";
+      audioRiktig.play();
     } else {
       submitBtn.innerText = "Feil :(";
-      submitBtn.style.backgroundColor = "#FF0000"
-      audioRandom.play()
+      submitBtn.style.backgroundColor = "#FF0000";
+      audioRandom.play();
     }
+
+    console.log("removing the effect disabled");
   }
 });
