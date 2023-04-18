@@ -55,6 +55,14 @@ const c_text = document.getElementById("c_text");
 const d_text = document.getElementById("d_text");
 const e_text = document.getElementById("e_text");
 const submitBtn = document.getElementById("submit");
+const audioFeil = ["Lyd og bilder/aughhhhh-aughhhhh.mp3", "Lyd og bilder/bing-chilling_fcdGgUc.mp3",
+"Lyd og bilder/boom.mp3", "Lyd og bilder/clash-royale-hog-rider.mp3", "Lyd og bilder/perfect-fart.mp3", "Lyd og bilder/hei.mp3"];
+
+const random = Math.floor(Math.random() * audioFeil.length);
+console.log(random, audioFeil[random]);
+
+let audioRiktig = new Audio('Lyd og bilder/Yippee Original Sound Effect.mp3')
+let audioRandom = new Audio(random)
 
 let currentQuiz = 0;
 let score = 0;
@@ -96,6 +104,7 @@ submitBtn.addEventListener("click", () => {
     //hvis svaret er ingenting
     setTimeout(function () {
       submitBtn.innerText = "Submit";
+      submitBtn.style.backgroundColor = "#04adc4"
 
       currentQuiz++;
 
@@ -108,13 +117,17 @@ submitBtn.addEventListener("click", () => {
             <button onclick="location.reload()">Prøv Igjen</button> 
             `;
       }
-    }, 3000);
+    }, 2000);
 
     if (answer === quizData[currentQuiz].correct) {
       submitBtn.innerText = "Riktig :D";
       score++;
+      submitBtn.style.backgroundColor = "#44b927"
+      audioRiktig.play()
     } else {
       submitBtn.innerText = "Feil :(";
+      submitBtn.style.backgroundColor = "#FF0000"
+      audioRandom.play()
     }
   }
 });
