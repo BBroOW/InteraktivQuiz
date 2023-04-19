@@ -15,7 +15,7 @@ const quizData = [
     c: "Premiere Pro",
     d: "After Effects",
     e: "InDesign",
-    correct: "b",
+    correct: "c",
   },
   {
     question: "Hvem er den kuleste i Exit",
