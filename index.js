@@ -140,11 +140,14 @@ submitBtn.addEventListener("click", () => {
       if (currentQuiz < quizData.length) {
         loadQuiz();
       } else {
+
+        stop();
+        
         quiz.innerHTML = `
             <h2>Du fikk ${score}/${quizData.length} riktige svar!</h2>
-    
             <button onclick="location.reload()">Prøv Igjen</button> 
-            `;
+            <p> Du brukte ${minute} minutter og ${second},${millisecond} sekunder på denne quizen <p>`;
+        
       }
     }, 2000);
     console.log(answer, quizData[currentQuiz].correct);
@@ -162,3 +165,60 @@ submitBtn.addEventListener("click", () => {
     console.log("removing the effect disabled");
   }
 });
+
+
+
+
+// <------Timer------>//
+let minute = 0;
+let second = 0;
+let millisecond = 0;
+
+let cron;
+
+
+
+function start() {
+  pause();
+  cron = setInterval(() => { timer(); }, 10);
+}
+
+function pause() {
+  clearInterval(cron);
+}
+
+function reset() {
+  minute = 0;
+  second = 0;
+  millisecond = 0;
+  document.getElementById('minute').innerText = '00';
+  document.getElementById('second').innerText = '00';
+  document.getElementById('millisecond').innerText = '000';
+}
+
+function timer() {
+  if ((millisecond += 10) == 1000) {
+    millisecond = 0;
+    second++;
+  }
+  if (second == 60) {
+    second = 0;
+    minute++;
+  }
+
+  document.getElementById('minute').innerText = returnData(minute);
+  document.getElementById('second').innerText = returnData(second);
+  document.getElementById('millisecond').innerText = returnData(millisecond);
+}
+
+function returnData(input) {
+  return input >= 10 ? input : `0${input}`
+}
+
+const body = document.querySelector('body');
+
+function myFunction() {
+  console.log('Hello, world!');
+}
+
+body.onload = start;
