@@ -60,9 +60,15 @@ const audioFeil = [
   "Lyd og bilder/bing-chilling_fcdGgUc.mp3",
   "Lyd og bilder/boom.mp3",
   "Lyd og bilder/perfect-fart.mp3",
+  "Lyd og bilder/boi-what-da-hell-boi.mp3",
 ];
 
+
 let audioRiktig = new Audio("Lyd og bilder/Yippee Original Sound Effect.mp3");
+let audioLoop = new Audio("Lyd og bilder/dream-low-quality-speedrun.mp3");
+let audioEnd = new Audio('Lyd og bilder/victory_sJDDywi.mp3')
+audioLoop.loop = true;
+audioLoop.volume = 0.2;
 
 let currentQuiz = 0;
 let score = 0;
@@ -95,12 +101,17 @@ function getSelected() {
   });
   return answer;
 }
+submitBtn.addEventListener("click", () => {
+  const random = Math.floor(Math.random() * audioFeil.length);
+  let audioRandom = new Audio(audioFeil[random]);
+  const answer = getSelected();
+});
+
 
 submitBtn.addEventListener("click", () => {
   const random = Math.floor(Math.random() * audioFeil.length);
   let audioRandom = new Audio(audioFeil[random]);
   const answer = getSelected();
-
   //de trykka på submit
   if (answer) {
     //hvis svaret er ingenting
@@ -142,6 +153,9 @@ submitBtn.addEventListener("click", () => {
       } else {
 
         stop();
+        audioEnd.play();
+        audioLoop.volume = 0;
+        
         
         quiz.innerHTML = `
             <h2>Du fikk ${score}/${quizData.length} riktige svar!</h2>
@@ -221,4 +235,8 @@ function myFunction() {
   console.log('Hello, world!');
 }
 
-body.onload = start;
+body.onload = () => {
+  audioLoop.play();
+  start();
+};
+
