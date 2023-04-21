@@ -59,7 +59,6 @@ const audioFeil = [
   "Lyd og bilder/aughhhhh-aughhhhh.mp3",
   "Lyd og bilder/bing-chilling_fcdGgUc.mp3",
   "Lyd og bilder/boom.mp3",
-  "Lyd og bilder/clash-royale-hog-rider.mp3",
   "Lyd og bilder/perfect-fart.mp3",
 ];
 
